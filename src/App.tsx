@@ -1,9 +1,8 @@
 import { useState } from "react";
-// import "./App.scss";
+import styled from "styled-components";
 import { Form, FormDataStructure } from "./components/form";
 import { Joke } from "./components/joke";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
-// import sourceOfJokes from "./jokes-data";
 
 interface JokeType {
   id?: number;
@@ -11,6 +10,47 @@ interface JokeType {
   setup: string;
   punchline: string;
 }
+
+const AppStyled = styled.div `
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-family: 'Fira Sans', sans-serif;
+  
+  & h2, & h3 {
+    color: #3eb4cd;
+  }
+
+  .app__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__back-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      padding: 10px;
+      width: 24px;
+      height: 24px;
+      color: white;
+      background-color: #d27a76;
+      border-radius: 50%;
+      cursor: pointer;
+      transition-property: transform background-color;
+      transition-duration: 200ms;
+
+      &:hover {
+        background-color: #d27b76c4;
+        transform: scale(95%);
+      }
+    }
+`
+
 
 function App() {
   const [userName, setUserName] = useState<string>();
@@ -35,12 +75,11 @@ function App() {
   console.log(jokesData);
   const handleSendData = (data: FormDataStructure) => {
     setUserName(data.name);
-    // fetchData(data.type, data.count);
     fetchData(data.type, data.count);
   };
 
   return (
-    <div className="app">
+    <AppStyled>
       {jokesData.length > 0 ? (
         <div className="app__container">
           <h2>{userName}</h2>
@@ -62,7 +101,7 @@ function App() {
           <Form onSubmitData={handleSendData} />
         </div>
       )}
-    </div>
+    </AppStyled>
   );
 }
 
